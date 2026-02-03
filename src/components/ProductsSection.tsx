@@ -1,6 +1,8 @@
 import { Plus, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useState, useRef } from 'react';
+import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
+import AnimatedSection from '@/components/AnimatedSection';
 
 interface Product {
   id: number;
@@ -85,7 +87,7 @@ const ProductsSection = () => {
     <section id="produtos" className="py-20 bg-gradient-to-b from-background to-card/50">
       <div className="container mx-auto px-4">
         {/* Header */}
-        <div className="flex items-center justify-between mb-8">
+        <AnimatedSection direction="up" className="flex items-center justify-between mb-8">
           <div>
             <h2 className="text-3xl md:text-4xl font-bold mb-2">
               Equipamentos e <span className="text-gradient-teal">Suplementos</span> Oficiais
@@ -97,22 +99,26 @@ const ProductsSection = () => {
           
           {/* Navigation Arrows - Desktop */}
           <div className="hidden md:flex gap-2">
-            <button
+            <motion.button
               onClick={() => scroll('left')}
               disabled={!canScrollLeft}
               className="p-2 rounded-full bg-secondary hover:bg-secondary/80 disabled:opacity-30 disabled:cursor-not-allowed transition-all"
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
             >
               <ChevronLeft className="h-6 w-6" />
-            </button>
-            <button
+            </motion.button>
+            <motion.button
               onClick={() => scroll('right')}
               disabled={!canScrollRight}
               className="p-2 rounded-full bg-secondary hover:bg-secondary/80 disabled:opacity-30 disabled:cursor-not-allowed transition-all"
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
             >
               <ChevronRight className="h-6 w-6" />
-            </button>
+            </motion.button>
           </div>
-        </div>
+        </AnimatedSection>
 
         {/* Products Carousel */}
         <div
@@ -122,32 +128,41 @@ const ProductsSection = () => {
           style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
         >
           <div className="flex gap-5" style={{ width: 'max-content' }}>
-            {products.map((product) => (
-              <ProductCard key={product.id} product={product} />
+            {products.map((product, index) => (
+              <ProductCard key={product.id} product={product} index={index} />
             ))}
           </div>
         </div>
 
         {/* View All Button */}
-        <div className="text-center mt-8">
+        <AnimatedSection direction="up" delay={0.3} className="text-center mt-8">
           <Button variant="outline" size="lg" className="border-white/20 hover:bg-white/10">
             Ver Todos os Produtos
           </Button>
-        </div>
+        </AnimatedSection>
       </div>
     </section>
   );
 };
 
-const ProductCard = ({ product }: { product: Product }) => {
+const ProductCard = ({ product, index }: { product: Product; index: number }) => {
   return (
-    <div className="glass-card w-[280px] overflow-hidden hover-lift group snap-start">
+    <motion.div 
+      className="glass-card w-[280px] overflow-hidden group snap-start"
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '-50px' }}
+      transition={{ delay: index * 0.1, duration: 0.5 }}
+      whileHover={{ y: -8, transition: { duration: 0.3 } }}
+    >
       {/* Image */}
       <div className="relative aspect-square overflow-hidden">
-        <img
+        <motion.img
           src={product.image}
           alt={product.name}
-          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+          className="w-full h-full object-cover"
+          whileHover={{ scale: 1.1 }}
+          transition={{ duration: 0.5 }}
         />
         <div className="absolute top-3 left-3">
           <span className="text-xs font-medium px-2 py-1 bg-primary/80 rounded-full">
@@ -168,12 +183,17 @@ const ProductCard = ({ product }: { product: Product }) => {
               </span>
             )}
           </div>
-          <Button size="icon" variant="teal" className="rounded-full h-10 w-10">
-            <Plus className="h-5 w-5" />
-          </Button>
+          <motion.div
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <Button size="icon" variant="teal" className="rounded-full h-10 w-10">
+              <Plus className="h-5 w-5" />
+            </Button>
+          </motion.div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

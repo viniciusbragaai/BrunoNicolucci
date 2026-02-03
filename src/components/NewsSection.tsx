@@ -1,5 +1,7 @@
 import { Calendar, ArrowRight } from 'lucide-react';
+import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
+import AnimatedSection from '@/components/AnimatedSection';
 
 interface NewsArticle {
   id: number;
@@ -45,34 +47,62 @@ const articles: NewsArticle[] = [
   },
 ];
 
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+    },
+  },
+};
+
+const cardVariants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.5,
+      ease: [0.22, 1, 0.36, 1] as [number, number, number, number],
+    },
+  },
+};
+
 const NewsSection = () => {
   return (
     <section id="noticias" className="py-20">
       <div className="container mx-auto px-4">
         {/* Header */}
-        <div className="text-center mb-12">
+        <AnimatedSection direction="up" className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold mb-2">
             Updates do <span className="text-gradient-teal">Team Nicolucci</span>
           </h2>
           <p className="text-muted-foreground">
             Dicas, novidades e conteúdo exclusivo para você
           </p>
-        </div>
+        </AnimatedSection>
 
         {/* Articles Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <motion.div 
+          className="grid md:grid-cols-2 lg:grid-cols-4 gap-6"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: '-100px' }}
+        >
           {articles.map((article, index) => (
             <ArticleCard key={article.id} article={article} featured={index === 0} />
           ))}
-        </div>
+        </motion.div>
 
         {/* View All */}
-        <div className="text-center mt-10">
+        <AnimatedSection direction="up" delay={0.3} className="text-center mt-10">
           <Button variant="outline" className="border-white/20 hover:bg-white/10 group">
             Ver Todas as Notícias
             <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
           </Button>
-        </div>
+        </AnimatedSection>
       </div>
     </section>
   );
@@ -80,17 +110,21 @@ const NewsSection = () => {
 
 const ArticleCard = ({ article, featured }: { article: NewsArticle; featured?: boolean }) => {
   return (
-    <article
-      className={`glass-card overflow-hidden hover-lift cursor-pointer group ${
+    <motion.article
+      variants={cardVariants}
+      className={`glass-card overflow-hidden cursor-pointer group ${
         featured ? 'md:col-span-2 lg:col-span-2 lg:row-span-2' : ''
       }`}
+      whileHover={{ y: -8, transition: { duration: 0.3 } }}
     >
       {/* Image */}
       <div className={`relative overflow-hidden ${featured ? 'aspect-[16/9] lg:aspect-[4/3]' : 'aspect-video'}`}>
-        <img
+        <motion.img
           src={article.image}
           alt={article.title}
-          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+          className="w-full h-full object-cover"
+          whileHover={{ scale: 1.05 }}
+          transition={{ duration: 0.5 }}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent" />
         <div className="absolute top-3 left-3">
@@ -111,7 +145,7 @@ const ArticleCard = ({ article, featured }: { article: NewsArticle; featured?: b
         </h3>
         <p className="text-muted-foreground text-sm line-clamp-2">{article.excerpt}</p>
       </div>
-    </article>
+    </motion.article>
   );
 };
 
