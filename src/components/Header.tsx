@@ -1,11 +1,14 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Search, Menu, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { useAuth } from '@/contexts/AuthContext';
 import logoBN from '@/assets/logo-bn.png';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const { user, signOut } = useAuth();
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 glass border-b border-white/10">
@@ -29,12 +32,25 @@ const Header = () => {
 
         {/* Desktop Actions */}
         <div className="hidden md:flex items-center gap-3">
-          <Button variant="outline" size="sm" className="border-white/20 hover:bg-white/10">
-            Login
-          </Button>
-          <Button variant="teal" size="sm">
-            Cadastrar
-          </Button>
+          {user ? (
+            <>
+              <Button variant="outline" size="sm" className="border-white/20 hover:bg-white/10" asChild>
+                <Link to="/membros">Área do Membro</Link>
+              </Button>
+              <Button variant="teal" size="sm" onClick={() => signOut()}>
+                Sair
+              </Button>
+            </>
+          ) : (
+            <>
+              <Button variant="outline" size="sm" className="border-white/20 hover:bg-white/10" asChild>
+                <Link to="/auth">Login</Link>
+              </Button>
+              <Button variant="teal" size="sm" asChild>
+                <Link to="/auth">Cadastrar</Link>
+              </Button>
+            </>
+          )}
         </div>
 
         {/* Mobile Actions */}
@@ -81,14 +97,27 @@ const Header = () => {
             <a href="#noticias" className="py-2 px-4 hover:bg-white/10 rounded-lg transition-colors">
               Notícias
             </a>
-            <div className="flex gap-3 pt-2">
-              <Button variant="outline" className="flex-1 border-white/20 hover:bg-white/10">
-                Login
-              </Button>
-              <Button variant="teal" className="flex-1">
-                Cadastrar
-              </Button>
-            </div>
+            {user ? (
+              <>
+                <Link to="/membros" className="py-2 px-4 hover:bg-white/10 rounded-lg transition-colors">
+                  Área do Membro
+                </Link>
+                <div className="pt-2">
+                  <Button variant="teal" className="w-full" onClick={() => signOut()}>
+                    Sair
+                  </Button>
+                </div>
+              </>
+            ) : (
+              <div className="flex gap-3 pt-2">
+                <Button variant="outline" className="flex-1 border-white/20 hover:bg-white/10" asChild>
+                  <Link to="/auth">Login</Link>
+                </Button>
+                <Button variant="teal" className="flex-1" asChild>
+                  <Link to="/auth">Cadastrar</Link>
+                </Button>
+              </div>
+            )}
           </div>
         </nav>
       )}

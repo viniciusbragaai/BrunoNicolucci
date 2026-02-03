@@ -1,4 +1,6 @@
 import { Check, Star } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import heroImage from '@/assets/hero-gym.jpg';
 
@@ -59,6 +61,28 @@ const plans: Plan[] = [
   },
 ];
 
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.15,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.6,
+      ease: [0.22, 1, 0.36, 1] as [number, number, number, number],
+    },
+  },
+};
+
 const HeroPlans = () => {
   return (
     <section id="planos" className="relative min-h-screen flex items-center pt-24 pb-16">
@@ -72,51 +96,76 @@ const HeroPlans = () => {
 
       <div className="container mx-auto px-4 relative z-10">
         {/* Header */}
-        <div className="text-center mb-12">
+        <motion.div 
+          className="text-center mb-12"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+        >
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">
             Transforme seu <span className="text-gradient-teal">Corpo</span>
           </h1>
           <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
             Escolha o plano ideal para você e comece sua jornada com a Team Nicolucci
           </p>
-        </div>
+        </motion.div>
 
         {/* Plans Grid - Desktop */}
-        <div className="hidden md:grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-          {plans.map((plan, index) => (
-            <PlanCard key={plan.name} plan={plan} delay={index * 100} />
+        <motion.div 
+          className="hidden md:grid md:grid-cols-3 gap-6 max-w-5xl mx-auto"
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+        >
+          {plans.map((plan) => (
+            <PlanCard key={plan.name} plan={plan} />
           ))}
-        </div>
+        </motion.div>
 
         {/* Plans Carousel - Mobile */}
-        <div className="md:hidden overflow-x-auto pb-4 -mx-4 px-4 snap-x snap-mandatory">
+        <motion.div 
+          className="md:hidden overflow-x-auto pb-4 -mx-4 px-4 snap-x snap-mandatory"
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+        >
           <div className="flex gap-4" style={{ width: 'max-content' }}>
-            {plans.map((plan, index) => (
+            {plans.map((plan) => (
               <div key={plan.name} className="w-[300px] snap-center">
-                <PlanCard plan={plan} delay={index * 100} />
+                <PlanCard plan={plan} />
               </div>
             ))}
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );
 };
 
-const PlanCard = ({ plan, delay }: { plan: Plan; delay: number }) => {
+const PlanCard = ({ plan }: { plan: Plan }) => {
   return (
-    <div
-      className={`relative ${plan.isPopular ? 'glass-card-highlight' : 'glass-card'} p-6 hover-lift group`}
-      style={{ animationDelay: `${delay}ms` }}
+    <motion.div
+      variants={itemVariants}
+      className={`relative ${plan.isPopular ? 'glass-card-highlight' : 'glass-card'} p-6 group`}
+      whileHover={{ 
+        y: -8, 
+        scale: 1.02,
+        transition: { duration: 0.3, ease: 'easeOut' }
+      }}
     >
       {/* Popular Badge */}
       {plan.isPopular && (
-        <div className="absolute -top-3 left-1/2 -translate-x-1/2">
+        <motion.div 
+          className="absolute -top-3 left-1/2 -translate-x-1/2"
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.4, duration: 0.3 }}
+        >
           <div className="flex items-center gap-1 bg-primary px-3 py-1 rounded-full text-xs font-semibold">
             <Star className="h-3 w-3 fill-current" />
             Mais Popular
           </div>
-        </div>
+        </motion.div>
       )}
 
       {/* Plan Header */}
@@ -133,8 +182,14 @@ const PlanCard = ({ plan, delay }: { plan: Plan; delay: number }) => {
 
       {/* Features */}
       <ul className="space-y-3 mb-8">
-        {plan.features.map((feature) => (
-          <li key={feature.text} className="flex items-start gap-2">
+        {plan.features.map((feature, index) => (
+          <motion.li 
+            key={feature.text} 
+            className="flex items-start gap-2"
+            initial={{ opacity: 0, x: -10 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ delay: index * 0.05 }}
+          >
             <Check
               className={`h-5 w-5 shrink-0 mt-0.5 ${
                 feature.included ? 'text-primary' : 'text-muted-foreground/30'
@@ -143,7 +198,7 @@ const PlanCard = ({ plan, delay }: { plan: Plan; delay: number }) => {
             <span className={feature.included ? '' : 'text-muted-foreground/50 line-through'}>
               {feature.text}
             </span>
-          </li>
+          </motion.li>
         ))}
       </ul>
 
@@ -152,8 +207,9 @@ const PlanCard = ({ plan, delay }: { plan: Plan; delay: number }) => {
         variant={plan.isPopular ? 'teal' : 'outline'}
         className="w-full"
         size="lg"
+        asChild
       >
-        Assinar Agora
+        <Link to="/auth">Assinar Agora</Link>
       </Button>
 
       {/* Subtle Glow on Hover */}
@@ -162,7 +218,7 @@ const PlanCard = ({ plan, delay }: { plan: Plan; delay: number }) => {
           <div className="absolute inset-0 rounded-2xl animate-glow" />
         </div>
       )}
-    </div>
+    </motion.div>
   );
 };
 
