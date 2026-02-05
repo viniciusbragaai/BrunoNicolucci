@@ -1,73 +1,55 @@
-# Welcome to your Lovable project
+# Team Nicolucci | Fitness Platform & PWA
 
-## Project info
+![Project Status](https://img.shields.io/badge/status-active-success.svg)
+![License](https://img.shields.io/badge/license-proprietary-blue.svg)
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+## 🚀 Overview
 
-## How can I edit this code?
+**Team Nicolucci Platform** is a comprehensive digital ecosystem designed for high-performance personal training. The project serves as both a high-conversion landing page and a robust web application (PWA) for managing student subscriptions and content.
 
-There are several ways of editing your application.
+It bridges the gap between marketing (sales) and delivery (member area), featuring a seamless checkout flow with recurring payments and an integrated e-commerce store.
 
-**Use Lovable**
+## ✨ Key Features
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
+### 🛒 Commercial & Sales
+- **Tiered Subscription System:** Dynamic pricing cards (Standard, Plus, Premium) with feature comparison.
+- **E-commerce Module:** Integrated store for fitness gear and supplements.
+- **Recurring Billing:** Automated monthly checkout flow for subscription renewal.
+- **News Feed:** Content management system for team updates and fitness tips.
 
-Changes made via Lovable will be committed automatically to this repo.
+### 🔐 Member Area (Dashboard)
+- **Secure Authentication:** User login and registration pipeline.
+- **Workout Tracking:** Interactive interface for students to access daily training routines.
+- **Responsive PWA:** Native-app experience on iOS and Android devices via browser installation.
 
-**Use your preferred IDE**
+## 🛠️ Tech Stack (Tentative)
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+- **Frontend:** React, TypeScript, Tailwind CSS
+- **Design System:** Glassmorphism UI, Dark Mode Aesthetic
+- **State Management:** (e.g., React Query / Zustand)
+- **Payment Gateway:** (e.g., Stripe / Pagar.me Integration)
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+## 🎨 UI/UX Design
 
-Follow these steps:
+The application follows a **"Dark Premium"** aesthetic, utilizing a Deep Black/Charcoal background with **Vibrant Teal (#008080)** accents to align with the Bruno Nicolucci brand identity. The interface prioritizes mobile-first usability and high contrast for accessibility.
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+## 📦 Installation & Setup
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+```bash
+# Clone the repository
+git clone [https://github.com/your-username/team-nicolucci-platform.git](https://github.com/your-username/team-nicolucci-platform.git)
 
-# Step 3: Install the necessary dependencies.
-npm i
+# Navigate to the project directory
+cd team-nicolucci-platform
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+# Install dependencies
+npm install
+
+# Start the development server
 npm run dev
-```
 
-**Edit a file directly in GitHub**
+🤝 Contributing
+This project is currently under active development. Contributions are welcome for bug fixes and feature enhancements.
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
-
-**Use GitHub Codespaces**
-
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+📄 License
+Copyright © 2026 Team Nicolucci. All rights reserved. Developed by Vinicius.
