@@ -14,49 +14,12 @@ interface Product {
 }
 
 const products: Product[] = [
-  {
-    id: 1,
-    name: 'Whey Protein Isolado 900g',
-    price: 'R$ 189,90',
-    originalPrice: 'R$ 229,90',
-    image: 'https://images.unsplash.com/photo-1593095948071-474c5cc2989d?w=300&h=300&fit=crop',
-    category: 'Suplementos',
-  },
-  {
-    id: 2,
-    name: 'Camiseta Dry Fit Team Nicolucci',
-    price: 'R$ 89,90',
-    image: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=300&h=300&fit=crop',
-    category: 'Vestuário',
-  },
-  {
-    id: 3,
-    name: 'Creatina Monohidratada 300g',
-    price: 'R$ 129,90',
-    image: 'https://images.unsplash.com/photo-1594381898411-846e7d193883?w=300&h=300&fit=crop',
-    category: 'Suplementos',
-  },
-  {
-    id: 4,
-    name: 'Shaker Premium 700ml',
-    price: 'R$ 49,90',
-    image: 'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=300&h=300&fit=crop',
-    category: 'Acessórios',
-  },
-  {
-    id: 5,
-    name: 'Luvas de Treino Pro',
-    price: 'R$ 79,90',
-    image: 'https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?w=300&h=300&fit=crop',
-    category: 'Acessórios',
-  },
-  {
-    id: 6,
-    name: 'BCAA 2:1:1 - 120 caps',
-    price: 'R$ 69,90',
-    image: 'https://images.unsplash.com/photo-1579722821273-0f6c7d44362f?w=300&h=300&fit=crop',
-    category: 'Suplementos',
-  },
+  { id: 1, name: 'Whey Protein Isolado 900g', price: 'R$ 189,90', originalPrice: 'R$ 229,90', image: 'https://images.unsplash.com/photo-1593095948071-474c5cc2989d?w=300&h=300&fit=crop', category: 'Suplementos' },
+  { id: 2, name: 'Camiseta Dry Fit Reginaldo Gárcia', price: 'R$ 89,90', image: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=300&h=300&fit=crop', category: 'Vestuário' },
+  { id: 3, name: 'Creatina Monohidratada 300g', price: 'R$ 129,90', image: 'https://images.unsplash.com/photo-1594381898411-846e7d193883?w=300&h=300&fit=crop', category: 'Suplementos' },
+  { id: 4, name: 'Shaker Premium 700ml', price: 'R$ 49,90', image: 'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=300&h=300&fit=crop', category: 'Acessórios' },
+  { id: 5, name: 'Luvas de Treino Pro', price: 'R$ 79,90', image: 'https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?w=300&h=300&fit=crop', category: 'Acessórios' },
+  { id: 6, name: 'BCAA 2:1:1 - 120 caps', price: 'R$ 69,90', image: 'https://images.unsplash.com/photo-1579722821273-0f6c7d44362f?w=300&h=300&fit=crop', category: 'Suplementos' },
 ];
 
 const ProductsSection = () => {
@@ -75,58 +38,34 @@ const ProductsSection = () => {
   const scroll = (direction: 'left' | 'right') => {
     if (scrollRef.current) {
       const scrollAmount = 320;
-      scrollRef.current.scrollBy({
-        left: direction === 'left' ? -scrollAmount : scrollAmount,
-        behavior: 'smooth',
-      });
+      scrollRef.current.scrollBy({ left: direction === 'left' ? -scrollAmount : scrollAmount, behavior: 'smooth' });
       setTimeout(checkScroll, 300);
     }
   };
 
   return (
-    <section id="produtos" className="py-20 bg-gradient-to-b from-background to-card/50">
+    <section id="produtos" className="py-20 section-alt">
       <div className="container mx-auto px-4">
-        {/* Header */}
         <AnimatedSection direction="up" className="flex items-center justify-between mb-8">
           <div>
-            <h2 className="text-3xl md:text-4xl font-bold mb-2">
-              Equipamentos e <span className="text-gradient-teal">Suplementos</span> Oficiais
+            <h2 className="text-3xl md:text-4xl font-bold mb-2 text-foreground">
+              Equipamentos e <span className="text-gradient-blue">Suplementos</span> Oficiais
             </h2>
             <p className="text-muted-foreground">
-              Produtos selecionados pelo Team Nicolucci
+              Produtos selecionados por Reginaldo Gárcia
             </p>
           </div>
-          
-          {/* Navigation Arrows - Desktop */}
           <div className="hidden md:flex gap-2">
-            <motion.button
-              onClick={() => scroll('left')}
-              disabled={!canScrollLeft}
-              className="p-2 rounded-full bg-secondary hover:bg-secondary/80 disabled:opacity-30 disabled:cursor-not-allowed transition-all"
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <ChevronLeft className="h-6 w-6" />
+            <motion.button onClick={() => scroll('left')} disabled={!canScrollLeft} className="p-2 rounded-full bg-background border border-border hover:bg-accent disabled:opacity-30 disabled:cursor-not-allowed transition-all" whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }}>
+              <ChevronLeft className="h-6 w-6 text-foreground" />
             </motion.button>
-            <motion.button
-              onClick={() => scroll('right')}
-              disabled={!canScrollRight}
-              className="p-2 rounded-full bg-secondary hover:bg-secondary/80 disabled:opacity-30 disabled:cursor-not-allowed transition-all"
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <ChevronRight className="h-6 w-6" />
+            <motion.button onClick={() => scroll('right')} disabled={!canScrollRight} className="p-2 rounded-full bg-background border border-border hover:bg-accent disabled:opacity-30 disabled:cursor-not-allowed transition-all" whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }}>
+              <ChevronRight className="h-6 w-6 text-foreground" />
             </motion.button>
           </div>
         </AnimatedSection>
 
-        {/* Products Carousel */}
-        <div
-          ref={scrollRef}
-          onScroll={checkScroll}
-          className="overflow-x-auto pb-4 -mx-4 px-4 scrollbar-hide snap-x snap-mandatory"
-          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
-        >
+        <div ref={scrollRef} onScroll={checkScroll} className="overflow-x-auto pb-4 -mx-4 px-4 scrollbar-hide snap-x snap-mandatory" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
           <div className="flex gap-5" style={{ width: 'max-content' }}>
             {products.map((product, index) => (
               <ProductCard key={product.id} product={product} index={index} />
@@ -134,9 +73,8 @@ const ProductsSection = () => {
           </div>
         </div>
 
-        {/* View All Button */}
         <AnimatedSection direction="up" delay={0.3} className="text-center mt-8">
-          <Button variant="outline" size="lg" className="border-white/20 hover:bg-white/10">
+          <Button variant="outline" size="lg">
             Ver Todos os Produtos
           </Button>
         </AnimatedSection>
@@ -147,46 +85,30 @@ const ProductsSection = () => {
 
 const ProductCard = ({ product, index }: { product: Product; index: number }) => {
   return (
-    <motion.div 
-      className="glass-card w-[280px] overflow-hidden group snap-start"
+    <motion.div
+      className="clean-card w-[280px] overflow-hidden group snap-start bg-background"
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-50px' }}
       transition={{ delay: index * 0.1, duration: 0.5 }}
       whileHover={{ y: -8, transition: { duration: 0.3 } }}
     >
-      {/* Image */}
       <div className="relative aspect-square overflow-hidden">
-        <motion.img
-          src={product.image}
-          alt={product.name}
-          className="w-full h-full object-cover"
-          whileHover={{ scale: 1.1 }}
-          transition={{ duration: 0.5 }}
-        />
+        <motion.img src={product.image} alt={product.name} className="w-full h-full object-cover" whileHover={{ scale: 1.1 }} transition={{ duration: 0.5 }} />
         <div className="absolute top-3 left-3">
-          <span className="text-xs font-medium px-2 py-1 bg-primary/80 rounded-full">
-            {product.category}
-          </span>
+          <span className="text-xs font-medium px-2 py-1 bg-primary text-primary-foreground rounded-full">{product.category}</span>
         </div>
       </div>
-
-      {/* Content */}
       <div className="p-4">
-        <h3 className="font-semibold mb-2 line-clamp-2 h-12">{product.name}</h3>
+        <h3 className="font-semibold mb-2 line-clamp-2 h-12 text-foreground">{product.name}</h3>
         <div className="flex items-center justify-between">
           <div>
             <span className="text-xl font-bold text-primary">{product.price}</span>
             {product.originalPrice && (
-              <span className="text-sm text-muted-foreground line-through ml-2">
-                {product.originalPrice}
-              </span>
+              <span className="text-sm text-muted-foreground line-through ml-2">{product.originalPrice}</span>
             )}
           </div>
-          <motion.div
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.95 }}
-          >
+          <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }}>
             <Button size="icon" variant="teal" className="rounded-full h-10 w-10">
               <Plus className="h-5 w-5" />
             </Button>

@@ -4,10 +4,10 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 
 const stats = [
-  { label: 'Dias de Treino', value: '24', icon: Calendar, color: 'text-blue-400' },
-  { label: 'Sequência Atual', value: '7 dias', icon: Flame, color: 'text-orange-400' },
-  { label: 'Meta Mensal', value: '80%', icon: Target, color: 'text-green-400' },
-  { label: 'Calorias Queimadas', value: '12.4k', icon: Activity, color: 'text-red-400' },
+  { label: 'Dias de Treino', value: '24', icon: Calendar, color: 'text-blue-600' },
+  { label: 'Sequência Atual', value: '7 dias', icon: Flame, color: 'text-orange-500' },
+  { label: 'Meta Mensal', value: '80%', icon: Target, color: 'text-green-600' },
+  { label: 'Calorias Queimadas', value: '12.4k', icon: Activity, color: 'text-red-500' },
 ];
 
 const recentWorkouts = [
@@ -26,33 +26,20 @@ const achievements = [
 const DashboardTab = () => {
   return (
     <div className="space-y-6">
-      {/* Header */}
       <div>
-        <h1 className="text-2xl lg:text-3xl font-bold mb-2">
-          Olá! 👋
-        </h1>
-        <p className="text-muted-foreground">
-          Acompanhe sua evolução e mantenha o foco nos seus objetivos.
-        </p>
+        <h1 className="text-2xl lg:text-3xl font-bold mb-2 text-foreground">Olá! 👋</h1>
+        <p className="text-muted-foreground">Acompanhe sua evolução e mantenha o foco nos seus objetivos.</p>
       </div>
 
-      {/* Stats Grid */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         {stats.map((stat, index) => (
-          <motion.div
-            key={stat.label}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: index * 0.1 }}
-          >
-            <Card className="glass-card border-white/10">
+          <motion.div key={stat.label} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: index * 0.1 }}>
+            <Card className="clean-card bg-background">
               <CardContent className="p-4 lg:p-6">
                 <div className="flex items-center gap-3 mb-2">
-                  <div className={`p-2 rounded-lg bg-white/10 ${stat.color}`}>
-                    <stat.icon className="h-5 w-5" />
-                  </div>
+                  <div className={`p-2 rounded-lg bg-secondary ${stat.color}`}><stat.icon className="h-5 w-5" /></div>
                 </div>
-                <p className="text-2xl lg:text-3xl font-bold">{stat.value}</p>
+                <p className="text-2xl lg:text-3xl font-bold text-foreground">{stat.value}</p>
                 <p className="text-sm text-muted-foreground">{stat.label}</p>
               </CardContent>
             </Card>
@@ -61,34 +48,19 @@ const DashboardTab = () => {
       </div>
 
       <div className="grid lg:grid-cols-2 gap-6">
-        {/* Recent Workouts */}
-        <motion.div
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: 0.4 }}
-        >
-          <Card className="glass-card border-white/10">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <TrendingUp className="h-5 w-5 text-primary" />
-                Treinos Recentes
-              </CardTitle>
-            </CardHeader>
+        <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.4 }}>
+          <Card className="clean-card bg-background">
+            <CardHeader><CardTitle className="flex items-center gap-2"><TrendingUp className="h-5 w-5 text-primary" />Treinos Recentes</CardTitle></CardHeader>
             <CardContent className="space-y-4">
               {recentWorkouts.map((workout, index) => (
-                <div
-                  key={index}
-                  className="flex items-center justify-between p-3 bg-white/5 rounded-lg"
-                >
+                <div key={index} className="flex items-center justify-between p-3 bg-secondary rounded-lg">
                   <div>
-                    <p className="font-medium">{workout.name}</p>
+                    <p className="font-medium text-foreground">{workout.name}</p>
                     <p className="text-sm text-muted-foreground">{workout.date}</p>
                   </div>
                   <div className="text-right">
                     <p className="text-sm text-primary">{workout.duration}</p>
-                    {workout.completed && (
-                      <span className="text-xs text-green-400">✓ Completo</span>
-                    )}
+                    {workout.completed && <span className="text-xs text-green-600">✓ Completo</span>}
                   </div>
                 </div>
               ))}
@@ -96,19 +68,9 @@ const DashboardTab = () => {
           </Card>
         </motion.div>
 
-        {/* Achievements */}
-        <motion.div
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: 0.5 }}
-        >
-          <Card className="glass-card border-white/10">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Trophy className="h-5 w-5 text-yellow-400" />
-                Conquistas
-              </CardTitle>
-            </CardHeader>
+        <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.5 }}>
+          <Card className="clean-card bg-background">
+            <CardHeader><CardTitle className="flex items-center gap-2"><Trophy className="h-5 w-5 text-yellow-500" />Conquistas</CardTitle></CardHeader>
             <CardContent className="space-y-4">
               {achievements.map((achievement, index) => (
                 <div key={index} className="space-y-2">
@@ -116,10 +78,8 @@ const DashboardTab = () => {
                     <div className="flex items-center gap-2">
                       <span className="text-xl">{achievement.icon}</span>
                       <div>
-                        <p className="font-medium">{achievement.name}</p>
-                        <p className="text-xs text-muted-foreground">
-                          {achievement.description}
-                        </p>
+                        <p className="font-medium text-foreground">{achievement.name}</p>
+                        <p className="text-xs text-muted-foreground">{achievement.description}</p>
                       </div>
                     </div>
                     <span className="text-sm text-primary">{achievement.progress}%</span>
@@ -132,28 +92,16 @@ const DashboardTab = () => {
         </motion.div>
       </div>
 
-      {/* Weekly Progress Chart Placeholder */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.6 }}
-      >
-        <Card className="glass-card border-white/10">
-          <CardHeader>
-            <CardTitle>Progresso Semanal</CardTitle>
-          </CardHeader>
+      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6 }}>
+        <Card className="clean-card bg-background">
+          <CardHeader><CardTitle className="text-foreground">Progresso Semanal</CardTitle></CardHeader>
           <CardContent>
             <div className="h-48 flex items-end justify-around gap-2">
               {['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'].map((day, index) => {
                 const heights = [60, 80, 45, 90, 70, 100, 30];
                 return (
                   <div key={day} className="flex flex-col items-center gap-2 flex-1">
-                    <motion.div
-                      initial={{ height: 0 }}
-                      animate={{ height: `${heights[index]}%` }}
-                      transition={{ delay: 0.7 + index * 0.05, duration: 0.5 }}
-                      className="w-full max-w-[40px] bg-gradient-to-t from-primary to-teal-glow rounded-t-lg"
-                    />
+                    <motion.div initial={{ height: 0 }} animate={{ height: `${heights[index]}%` }} transition={{ delay: 0.7 + index * 0.05, duration: 0.5 }} className="w-full max-w-[40px] bg-gradient-to-t from-primary to-primary/70 rounded-t-lg" />
                     <span className="text-xs text-muted-foreground">{day}</span>
                   </div>
                 );
